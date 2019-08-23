@@ -1,0 +1,13 @@
+$ sudo yum -y install httpd
+$ sudo systemctl enable --now httpd
+$ sudo firewall-cmd --add-service=http --add-service=https
+$ sudo firewall-cmd --add-service=http --add-service=https --permanent
+$ sudo yum module list
+$ sudo yum -y module install MariaDB
+$ sudo systemctl enable --now MariaDB
+$ sudo setsebool -P httpd_can_network_connect_db on
+$ sudo mysql_secure_installation
+$ sudo yum module list
+$ sudo yum -y module install php
+$ sudo yum -y install php-mysqlnd
+$ sudo systemctl restart httpd
