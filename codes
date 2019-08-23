@@ -1,0 +1,30 @@
+To enable a a service:
+
+# systemctl enable <servicename>
+# systemctl start <servicename>
+ 
+To disable a service:
+
+# systemctl stop <servicename>
+# systemctl disable <servicename>
+
+Other common and familiar actions are restart, reload, and status.
+# systemctl restart <servicename>
+# systemctl reload <servicename>
+# systemctl status <servicename>
+
+NOTE: Apparently, only the use of "status" will output to terminal.  All others will take effect silently. 
+
+Getting a list of available services which are enabled and diabled can be done with the command:
+
+# systemctl list-unit-files --type=service
+
+ Systemd uses and manages "units."  These "units" can be services, devices, sockets, or mount points.   The type of unit is identified by .service, .device, .socket, or .mount.
+
+ 
+To view failed units on a system:
+# systemctl --failed
+
+
+An interesting feature of systemd is that you can view how long each process took to start:
+# systemd-analyze blame
