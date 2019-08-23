@@ -1,0 +1,35 @@
+System Profile - dmidecode
+                           lscpu
+                           lshw
+                           cat /prod/cpuinfo
+                            
+Redhat version   /etc/redhat-release
+
+Configure time and date - ntpdate
+timedatectl
+
+Configure SSH              /etc/ssh/ssh_config 
+                           /etc/ssh/sshd_config
+                           ~/.ssh/config ssh-keygen
+
+Config logging             /etc/rsyslog.conf 
+                           /etc/rsyslog.d/*.conf 
+                           /var/log/journal
+                           systemd-journald.service
+
+
+Lis running services       systemctl -t service --state=active
+
+Stop / start service       systemctl stop name.service
+                           systemctl start  name.service
+
+enable / disable service   systemctl enable name.service
+                           systemctl disable name.service
+
+Reboot                     systemctl shutdown / poweroff
+                           systemctl  reboot
+
+Yum command                yum install
+                           yum info
+                           yum module list
+                           yum module info modulename
