@@ -1,0 +1,109 @@
+Firewall
+Firewalld separates all incoming traffic into zones, with each zone having its own set of rules.
+Default Configuration of firewalld Zones:
+drop		any incoming network packets are dropped, there is no reply. Only outgoing network connections are possible.
+block		any incoming network connections are rejected with an icmp-host-prohibited message nfor ipv4 and icmp6-adm-prohibited for ipv6. Only 			Network Connections initiated within the systems are possible.
+public		For use in public areaOnly selected incoing connections are accepted.
+dmz		for computers in your demillitarized zone that are publicly-accessible with limited access to your internal network.
+work		for use in work areas.
+home		for use in home areas
+internal	for use in internal networks.
+trusted		All network connections are accepted.
+Managing Firewalld:
+1. Using command line tool firewall-cmd.
+2. Using the graphical tool firewall-config.
+3. Using the configuration files in /etc/firewalld/
+
+firewall-cmd options and thier explanation: (ommit '<>' & '[] )
+
+--get-default-zone		query the current default zone
+--set-default-zone		Set the default zone.
+--get-zones			List all available zones.
+--get-services			List all predefined services.
+--get-active-zones		List all currently active zones.
+--add-source=<ipaddr/network> [--zone=<zone_name>] 		Route all traffic coming from particular ip addr or network to the specified zone.
+--remove-source=<ipaddr/network> [--zone=<zone_name>] 		Remove all traffic coming from particular ip addr or network from the specified zone.
+--add-interface=<interface_name> [--zone=<zone_name>]		Route all incoming traffic coming from the particular interface to the specified zone.
+--list-all [--zone=<zone_name>]		List all configured interface,sources,and ports for the specified zone.
+--list-all-zones		Retrieve all informationfor all zones
+--add-services=<service_name>   Allow traffic to the specified service
+--add-port=<port/protocol>	Allow traffic to the specified port/protocol.
+--remove-service=<service_name> Remove the specified service from the allowed list.
+--remove-port=<port/protocol>   Remove the specified port/protocol from the allowed list.
+--reload			Refresh the firewall settings.
+--timeout=<seconds>  Enable an option for seconds only
+
+Examples:
+# firewall-cmd --set-default-zone=dmz
+# firewall-cmd --permanent --zone=internal --add-source=192.168.0.0/24
+# firewall-cmd --permanent --zone=internal --add-service=mysql
+# firewall-cmd --reload
+Configuring masquerading:
+to configure masquerading for a zone with regular firewall-cmd commands, use the following syntax:
+# firewall-cmd --permanent --zone=<zone_name> --add-masquerade
+this will masquerade any packets sent to the firewall from clients defined in the sources for that zone that are not addressed to the firewall itself
+to gain more control over what clients will be masqueraded, a rich rule can be used as well :
+# firewall-cmd --permanent --zone=<zone_name> --add-rich-rule='rule family=ipv4 source address=192.168.0.0/24 masquerade'
+Configuring Port forwarding:
+to configure port forwarding with firewall-cmd use the following syntax:
+# firewall-cmd --permanent --zone=<zone_name> --add-forward-port=port=<port_number>:proto=<protocol>[:toport=<port_number>][:toaddr=<ip_addr>]
+
+for example:
+# firewall-cmd --permanent --zone=public --add-forward-port=port=513:proto=tcp:toproto=132:toaddr=192.168.0.254
+to gain more control over port forwarding rules, the following example can be used with rich rules:
+# firewall-cmd --permanent --zone=work --add-rich-rule='rule family=ipv4 source address=192.168.0.0/26 forward-port port=80 protocol=tcp to-port=8080'
+
+Firewall  RICH RULES (writing custom rules) 
+
+Format of the Rich Rules Command:
+# firewall-cmd [--zone=zone] --add-rich-rule='rule' [--timeout=seconds]
+
+this will add a rich language rule to the specified zone, if timeout is supplied the rule will be active for some amount of time.
+
+To remove a rule:
+# firewall-cmd [--zone=zone] --remove-rich-rule='rule'
+
+To Check if a rule is Present:
+# firewall-cmd [--zone=zone] --query-rich-rule='rule'
+
+To list all rules:
+#firewall-cmd [--zone=zone] --list-rich-rules
+
+Understanding Rich rules:
+
+1. source : By specifying source address the origin of a connection attempt can be limited to the source address. A source address can either be ip addr or network address.
+
+2. destination : By specifying the destination address a target can be limited to the destination address.
+
+3. service : the service name is one of the firewalld provided service.
+
+4. port: a port can either be a single port number or a port range.
+
+5. protocol : protocol value can either be a potocol id number or a protocol name.
+
+6. icmp-block : se this command to block one or more icmp types.
+
+7. masquerade : turns on ip masquerading in a rule.
+
+8. forward-port : forwards packets from a local port with protocol specified as tcp or udp.
+
+9. accept|reject|drop : an action can be one of accept or reject or drop.
+
+Rich Rules Examples:
+#firewall-cmd --permanent --add-rich-rule='rule family=ipv4 source address=172.25.254.1/24 service name=ssh reject'
+
+# firewall-cmd --permanent --zone=classroom --add-rich-rule= 'rule family=ipv4' source address=192.168.0.11/32 reject
+
+(if the rule family is provided then it can either be ipv4 or ipv6 it limits the rule to ipv4 or ipv6, if the rule family is not provided the rule will be added for both ipv4 or ipv6.)
+
+# firewall-cmd --add-rich-rule='rule service name=ftp limit value=2/m accept'
+
+(Allow two new ftp connections per minute in the default zone)
+
+# firewall-cmd --permanent -add-rich-rule='rule protocol value=esp drop'
+
+(drop all incoming IPsec esp protocol packets from anywhere in the default zone)
+
+# firewall-cmd --permanent --zone=vnc --add-rich-rule='rule family=ipv4 source address=192.168.1.0/24 port port=7900-7905 protocol=tcp accept'
+
+(accept all tcp packets on port 7900, up to and including 7905, in the vnc zone for 192.168.1.0/24 subnet)
