@@ -1,0 +1,48 @@
+Basic Commands
+
+#ls	(List the contents of any directory)
+#ls -l	(Long listing - detailed report of available files)
+#ls -la (Long listing including hidden files)
+#pwd	(Shows your present working directory)
+#cd ..	(change directory - moves you to one level up)
+#cd /var/tmp	(change directory to the specified path)
+#cd	(Bring back to your home directory)
+Ctrl + L	(Clear Screen)
+Shift + Pg up Key 	(scroll your screen upwards)
+Shift + Pg down Key	(Scroll your screen downwards)
+#cd -	(Switches u between your current & previous directory)
+#touch file1	(creates an empty file)
+#mkdir dir1	(Creates new directory)
+#cd dir1	(change directory to dir1)
+#pwd
+#cat > file2	(Create new file with data)
+  Enter the data and press control + d to save the contents
+#cat file2	(check the data inside the given file)
+#cat >> file2	(Appends the new data in previously created file)
+	Enter the data, press enter and ctrl + d
+#cat file2
+
+--------------------------------------------------------
+
+@copy@
+#cp file2 file3	(make a copy of file2 with new name file3 including the contents of file)
+#cp file2 /tmp	(make a copy of file2 in /tmp directory)
+#cp file2 /tmp/backup_file2	(make a copy of file2 in /tmp directory with new name)
+#cp -r dir1 dir2	(-r switch is used to copy a directory)
+#cp -r dir1 /tmp/backup_dir1	(copy directory & rename)
+--------------------------------------------------------
+
+@move@
+#mv dir1 /var/tmp/	(Moves the dir1 to specified path)
+#mv file1 /tmp/backup_file1	(Move and rename)
+--------------------------------------------------------
+
+@rename@
+#mv old_name new_name	(same mv command is used for renaming)
+--------------------------------------------------------
+
+@remove/delete@
+#rm file1	(delete regular file)
+#rm -r dir1	(deletes the directory)
+#rm -rf dir2	(deletes all data in directory forcefully, use carefully)
+
