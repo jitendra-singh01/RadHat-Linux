@@ -1,0 +1,28 @@
+User and Group Managment
+#useradd username	(add new user in machine with default values)
+#passwd username	(creates password for newly created user or modify the password of existing user)
+
+Useradd command provides following values to a new user
+1) username
+2) User ID (uid)	This is unique ID for identfying a user in machine. UId starts from 1000+ for normal users, 0-999 is reserved for system users.
+3) Group ID (gid)	Useradd command automatically adds a new group to machine similar to the name of user. Group for every user is must. 
+4) Comment		(you can apply a comment on user, it is like full name of any user.)
+5) Home Directory	(Home Directory is alloted to every user by his name under the directory /home)
+6) Shell		(By default, bash shell is alloted to every user in machine)
+Shell   - (Shell is like interpretor between u and machine, the very first shell is sh. slowly various shells are developed, currently we are using BASH as our default shell. Bash supports various features likes command line completion, history etc)
+you can check the various availables shell in your machine by command #cat /etc/shells
+
+#groupadd groupname	(add a new group in machine by the specified name)
+#useradd -g pri_group username	(add new user by mentioning name of primary group)
+#useradd -G sec_group username	(add new user in machine with the specified secondary group. If primary group name is not specified then system will automatically create a primary group for user similar to username)
+#useradd -d /directory username 	(add new user in machine with his home directory on some new location, in place of default /home)
+#useradd -s /bin/sh username		(add new user in machine with default shell sh, in place of bash as default shell. By using this switch you can add non interactive user by specifing /sbin/nologin as default shell, this type of user is also called as mail user)
+#useradd -c "some comment" username	(add a comment to username, like full name of user)
+
+Three important files realted with the creation of new user :-
+
+1) /etc/passwd  (Contains the information about username:x:uid:gid:comments:home directory:shell)
+2) /etc/shadow	(Contains the MD5 encrypted password of user and user aging policy information)
+3) /etc/group	(Contains the information of groups and gid, also used to check the secondary group members of any group)
+
+#userdel -r username	(Command used to delete all sort of details related with user )
