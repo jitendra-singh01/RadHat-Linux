@@ -1,4 +1,5 @@
 Redirection
+-----------
 
 #ls -l /	{Command will return Standard Output on Monitor}
 
@@ -35,6 +36,7 @@ $find / -iname passwd &> stdout_err	{Command will store the output and error in 
 ---------------------------------------------------------------------
 
 Using Pipe Operator
+-------------------
 
 | (pipe) Operator is used to send the output on one command to another command. For example if we run 
 
@@ -56,6 +58,7 @@ Another example :
 --------------------------------------------------------------------------
 
 Using grep command :-
+-------------------
 
 #cat /etc/passwd | grep -i root	{Grep command is used to grep the required output from the long files, in this command we are trying to capture the lines where word "root" is used. -i switch is used to ignore the case senstivity.
 
@@ -66,6 +69,7 @@ Using grep command :-
 --------------------------------------------------------------------------
 
 diff
+----
 
 Create two similar files of 3 or 4 lines and check the differences between both the files
 
@@ -74,6 +78,7 @@ Create two similar files of 3 or 4 lines and check the differences between both 
 ----------------------------------------------------------------
 
 head & tail
+-----------
 
 #head -n 10 /etc/passwd
 #tail -n 10 /etc/passwd
@@ -82,12 +87,14 @@ head & tail
 ---------------------------------------------------------------------
 
 tee Command
+-----------
 
 #ifconfig | tee test12		{this command will store the output of ifconfig command as well display the output of ifconfig on screen }
 
 -----------------------------------------------------------------
 
 Standard Input
+--------------
 
 echo "redhat" | passwd --stdin student
 
