@@ -1,19 +1,33 @@
 Package Management 
+-------------------
+
 2 Methods :
+
 1) Manual =>  rpm / deb		{rpm's are used in Redhat based linux os like fedora & centos, whereas deb is used in Debian, Ubuntu, Mint etc}
+
 2) Automatic =>	yum / apt-get	{Yum method is used in redhat family os and apt-get(aptitude) is used in ubuntu, debian etc}
 
 Lets start with manual method.
 Change your directory to the directory containing packages ready for installation :
+
 #rpm -ivh package_full_name	{Command will install new package, -ivh option stands for install, verbose and hash printing}
+
 #rpm -Uvh package_full_name	{Command will upgrade any already installed package}
+
 #rpm -e package		{Command will erase the installed package from machine, here u just need to mention package name not full name including version and other things}
+
 Using auto Install dependency option :-
+
 #rpm -ivh --aid package_full_name	{This option will automatically install dependencies if available in the same directory}
+
 Installing forcefully without dependencies
+
 #rpm -ivh --nodeps package_full_name
+
 #rpm -ivh --nodeps --force package_full_name
+
 Installing package without verification of gpg key
+
 #rpm -ivh --nogpg vsftpd-2.2.2-11.el6.x86_64.rpm
 
 RPM queries
@@ -31,20 +45,37 @@ In this section we are querying with rpm's that how many files are installing wh
 Installing Packages Automatically through yum  (Yum Client Side)
 
 Yum is used to point any repository(collection of packages) contains packages. In this method you need not to download package again and again from server. So we are creating a pointer file which will point the repository in server.
+
 Remove all files from directory /etc/yum.repos.d/   if not created by you.
+
 Now create new repo file in the above mentioned directory with xyz.repo file or whatever name you want but the extension must be .repo
+
 #yum install vsftpd	{This will install vsftpd package from server's repository}
+
 #yum remove vsftpd -y	{This will remove vsftpd package from your machine}
+
 #yum update package	{This will update already installed package, similar to rpm -uvh}
+
 #yum info package	{Command will provide complete info of mentioned package}
+
 #yum search package	{Search the required package in repository, wheather it is available or not}
+
 #yum provides /etc/fstab	{Command will show the name of package by which fstab file is installed in machine}
+
 #yum list all		{Command will display the name of all installed pkg in machine and available packages to be installed on repository}
+
 #yum list installed	{Command will display all the installed packages}
+
 #yum list installed | grep vsftpd	{Command will filter vsftpd package out of all installed package}
+
 #yum list available		{Command will show the available packages to be installed on machine from server}
+
 #yum clean all		{Command is used to clear the cache of yum, very usefull if you stuck somewhere in installation}
+
 #yum update
+
 #yum grouplist		{Command will show the list of all bundled groups}
+
 #yum groupinstall "Desktop"	{Command will install whole Desktop group}
+
 #yum localinstall vsftpd	{Command will install vsftpd without using yum server, similar to rpm -ivh}
