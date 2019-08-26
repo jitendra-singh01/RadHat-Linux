@@ -1,0 +1,39 @@
+LINUX - LVM Resizing
+
+NOTE: Do not run on systems running OS older than RH5.6.
+
+Be VERY careful with your syntax when using the lvresize command as you could easily reduce your filesystem to a size smaller than its current usage.
+
+The lvresize command can extend or reduce a filesystem.
+If there is space available to extend a filesystem, you can extend without unmounting the volume.
+Common switches used are '-r' and '-L'. Please check the man page for additional switches and information.
+Some examples to extend a volume:
+
+To extend a filesystem that is smaller than 8G to 8G, lvresize -r -L 8G /dev/mapper/vgxxxx-lvxxxx
+
+To add an additional 8G to a filesystem, add a '+' to the front of the 8, lvresize -r -L +8G /dev/mapper/vgxxxx-lvxxxx
+
+To reduce a volume, umount the filesystem and run a preliminary fsck on it prior to the reduce. # umount /mount/point # fsck.ext3 -f -y /dev/mapper/vgxxxx-lvxxxx (if ext3)
+
+NOTE: Be sure you are not reducing the filesystem to a size smaller than the current data stored or all data will be lost.
+
+The command will be similar to the extend command, but using a '-' instead of a '+'.
+To reduce a 6.5G filesystem to 6G in size, essentially reducing by 512M
+lvresize -r -L -512M /dev/mapper/vgxxxx-lvxxxx
+Another way this could be completed with the same result of going from 6.5G to 6G
+
+ # lvresize -r -L 6G /dev/mapper/vgxxxx-lvxxxx
+Remount the volume either manually or with mount -a
+
+On older than RH 5.6, use lvextend or lvreduce. # lvextend -L +35G /dev/mapper/vgxxxx-lvxxxx
+
+then resize with: # resize2fs /dev/mapper/vgxxxx-lvxxxx
+
+Linux LVM add swap
+
+Create swap space sudo lvcreate -L 8G -n lvswap vgroot sudo mkswap /dev/mapper/vgroot-lvswap
+
+Add to /etc/fstab blkid sudo vi /etc/fstab
+
+Add swap to server sudo mount -a sudo swapon -a
+
