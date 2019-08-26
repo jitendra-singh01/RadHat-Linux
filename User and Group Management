@@ -1,14 +1,18 @@
 User and Group Managment
+------------------------
+
 #useradd username	(add new user in machine with default values)
 #passwd username	(creates password for newly created user or modify the password of existing user)
 
 Useradd command provides following values to a new user
+
 1) username
 2) User ID (uid)	This is unique ID for identfying a user in machine. UId starts from 1000+ for normal users, 0-999 is reserved for system users.
 3) Group ID (gid)	Useradd command automatically adds a new group to machine similar to the name of user. Group for every user is must. 
 4) Comment		(you can apply a comment on user, it is like full name of any user.)
 5) Home Directory	(Home Directory is alloted to every user by his name under the directory /home)
 6) Shell		(By default, bash shell is alloted to every user in machine)
+
 Shell   - (Shell is like interpretor between u and machine, the very first shell is sh. slowly various shells are developed, currently we are using BASH as our default shell. Bash supports various features likes command line completion, history etc)
 you can check the various availables shell in your machine by command #cat /etc/shells
 
