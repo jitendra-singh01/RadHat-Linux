@@ -1,0 +1,13 @@
+Find Commands :-
+------------------
+Find is used to search the data anywhere in system :
+#find / -name passwd	{Command will search file named passwd in / , remember this command will exactly match the case of search value, you have entered}
+#find / -name *.jpg	{command will search all the files in your system having extension .jpg}
+#find / -iname passwd 	{Command will search the value "passwd" in capital or small letters in whole system, including all mounted partitions}
+#find / -user username	{command will search all the data belongs to username user in whole system }
+#find / -size +10M	{Command will search all the files in system those are greater then 10 MB in size in whole system, you can search in K,M,G}
+#find / -size -10M	{Command will search all the files in system those are smaller then 10 MB in size, This command is practically not usable as maximum files in system is below 10M}
+#find / -size 10M	{Command will search the files of exact 10 MB}
+#find /home -ctime +3	{Command will search the data "created" before then last 3 days} 
+#find /home -atime -3 	{Command will search the data "accessed" within last 3 days}
+#find /home -mtime 3	{Command will search the data "modified" exactly 3 days before}
